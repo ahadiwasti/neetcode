@@ -1,0 +1,39 @@
+class ListNode:
+    def __init__(self,key=-1,next=None):
+        self.key = key
+        self.next = next
+
+class MyHashSet:
+    def __init__(self):
+        self.capacity = 1000
+        self.set = [ListNode() for _ in range(self.capacity)]
+
+    def hash(self,key):
+        return key%self.capacity
+
+    def add(self,key):
+        curr = self.set[self.hash(key)]
+
+        while curr.next:
+            if curr.next.key == key:
+                return
+            curr = curr.next
+
+        curr.next = ListNode(key)
+
+    def remove(self,key):
+        curr = self.set[self.hash(key)]
+        while curr.next:
+            if curr.next.key == key:
+                curr.next = curr.next.next
+                return
+            curr = curr.next
+
+
+    def contains(self,key):
+        curr = self.set[self.hash(key)]
+        while curr.next:
+            if curr.next.key == key:
+                return True
+            curr = curr.next
+        return False
